@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.tex": "latex",
+    "fcntl.h": "c"
+  }
+}
