@@ -12,6 +12,14 @@ main(int argc, char *argv[])
     cmd = argv[1];
   }
 
+  char *args[MAXARG] = {[0] = cmd};
+
+  int i;
+  for (i = 2; i < (argc); ++i) {
+    args[i-1] = argv[i];
+  }
+  --i;
+
   char buf[512];
   char *p = buf;
   char c;
@@ -25,15 +33,7 @@ main(int argc, char *argv[])
       p = buf;
 
       if(fork() == 0) {
-        char *args[MAXARG] = {[0] = cmd};
-
-        int i;
-        for (i = 2; i < (argc); i++) {
-          args[i-1] = argv[i];
-        }
-
-        args[--i] = buf;
-
+        args[i] = buf;
         exec(cmd, args);
         fprintf(2, "exec %s failed\n", cmd);
       } else {
